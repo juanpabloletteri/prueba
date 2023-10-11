@@ -9,7 +9,7 @@ import { Product } from '../interfaces/product.interface';
 export class ProductComponent implements OnInit {
 
   @Input() product!: Product;
-  @Output() addToCartClick = new EventEmitter<Product>();
+  @Output() addToCart = new EventEmitter<Product>();
   constructor() { }
 
   ngOnInit(): void {
@@ -17,6 +17,6 @@ export class ProductComponent implements OnInit {
   }
   onClick(): void {
     //console.log('click', this.product);
-    this.addToCartClick.emit(this.product);
+    this.addToCart.emit(this.product);
   }
 }
