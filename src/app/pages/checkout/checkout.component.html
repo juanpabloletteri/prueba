@@ -1,6 +1,6 @@
 <div class="container">
-    <form>
-        <mat-form-field class="form_element">
+    <form class="form item">
+        <mat-form-field class="form__element">
             <input 
             matInput 
             placeholder="Name" 
@@ -14,7 +14,7 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-radio-group class="form_element">
+        <mat-radio-group class="form__element">
             <p>Choose an option:</p>
 
             <mat-radio-button 
@@ -28,7 +28,7 @@
             >Delivery</mat-radio-button>
         </mat-radio-group>
 
-        <mat-form-field class="form_element">
+        <mat-form-field class="form__element">
             <input
             matInput
             placeholder="Shipping Address"
@@ -38,7 +38,7 @@
             >
         </mat-form-field>
 
-        <mat-form-field class="form_element">
+        <mat-form-field class="form__element">
             <input
             matInput
             placeholder="City"
@@ -48,6 +48,29 @@
             >
         </mat-form-field>
 
+        <mat-form-field class="form__element">
+            <mat-label>Select Me</mat-label>
+            <mat-select
+            name="store"
+            #store="ngModel"
+            [(ngModel)]="model.store">
+                <mat-option [value]="tienda" *ngFor="let tienda of stores">
+                    {{tienda.name}} - {{tienda.openingHours}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
     </form>
+</div>
+
+<div class="container__button">
+<button
+[disabled]=""
+mat-saised-button
+color="primary"
+type="submit"
+>
+Checkout
+</button>
 
 </div>

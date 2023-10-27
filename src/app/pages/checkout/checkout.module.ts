@@ -5,6 +5,7 @@ import { CheckoutRoutingModule } from './checkout-routing.module';
 import { CheckoutComponent } from './checkout.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
+import { MatOptionModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MaterialModule } from 'src/app/material.module';
     CommonModule,
     CheckoutRoutingModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    MatOptionModule
   ]
 })
 export class CheckoutModule { }
