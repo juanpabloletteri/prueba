@@ -16,27 +16,25 @@ export class CheckoutComponent {
     city: ''
   };
 
-  stores: Store[] = [
+  isDelivery = false;
 
-  ]
+  stores: Store[] = []
 
-  constructor(private dataSvc: DataService) {
-
-  }
+  constructor(private dataSvc: DataService) { }
 
   ngOnInit(): void {
     this.getStores();
   }
 
   onPickupOrDelivery(value: boolean): void {
-    console.log(value);
+    this.isDelivery = value;
   }
 
   onSubmit(): void {
     console.log('Guardar');
   }
 
-  getStores(): void {
+  private getStores(): void {
     this.dataSvc.getStores()
       .pipe(
         tap((stores: Store[]) => this.stores = stores))
