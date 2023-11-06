@@ -68,8 +68,9 @@ export class CheckoutComponent {
 
   private prepareDetails(): Details[] {
     const details: Details[] = [];
-    this.cart.forEach(res => {
-      console.log(res);
+    this.cart.forEach((product: Product) => {
+      const { id: productId, name: productName, qty: quantity, stock } = product;
+      details.push({ productId, productName, quantity });
     })
     return details;
   }
