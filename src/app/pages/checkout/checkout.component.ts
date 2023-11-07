@@ -7,6 +7,7 @@ import { Details, Order } from 'src/app/shared/interfaces/order.interfece';
 import { Product } from '../products/interfaces/product.interface';
 import { ShoppingCartService } from 'src/app/shared/components/header/services/shopping-cart.service';
 import { Router } from '@angular/router';
+import { ProductsService } from '../products/services/products.service';
 
 @Component({
   selector: 'app-checkout',
@@ -27,7 +28,8 @@ export class CheckoutComponent {
 
   constructor(private dataSvc: DataService,
     private shoppingCartSvc: ShoppingCartService,
-    private router: Router) { }
+    private router: Router,
+    private productSvc: ProductsService) { }
 
   ngOnInit(): void {
     this.getStores();
@@ -74,7 +76,12 @@ export class CheckoutComponent {
     const details: Details[] = [];
     this.cart.forEach((product: Product) => {
       const { id: productId, name: productName, qty: quantity, stock } = product;
-      details.push({ productId, productName, quantity });
+      const updateStock = (stock - quantity);
+      this.productSvc.updateStock(productId, updateStock)
+        .pipe(
+          tap(() => details.push({ productId, productName, quantity }))
+        )
+        .subscribe()
     })
     return details;
   }
