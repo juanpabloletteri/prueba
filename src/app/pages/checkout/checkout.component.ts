@@ -44,7 +44,7 @@ export class CheckoutComponent {
     const data: Order = {
       ...formData,
       date: this.getCurretnDay(),
-      pickup: this.isDelivery
+      isDelivery: this.isDelivery
     }
     this.dataSvc.saveOrder(data).pipe(
       tap(res => console.log('Order ->', res)),
