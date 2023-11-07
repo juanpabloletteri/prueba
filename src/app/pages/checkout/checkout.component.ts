@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { Details, Order } from 'src/app/shared/interfaces/order.interfece';
 import { Product } from '../products/interfaces/product.interface';
 import { ShoppingCartService } from 'src/app/shared/components/header/services/shopping-cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -20,11 +21,13 @@ export class CheckoutComponent {
     city: ''
   };
 
-  isDelivery = false;
+  isDelivery = true;
   cart: Product[] = [];
   stores: Store[] = []
 
-  constructor(private dataSvc: DataService, private shoppingCartSvc: ShoppingCartService) { }
+  constructor(private dataSvc: DataService,
+    private shoppingCartSvc: ShoppingCartService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getStores();
@@ -45,12 +48,11 @@ export class CheckoutComponent {
     }
     this.dataSvc.saveOrder(data).pipe(
       tap(res => console.log('Order ->', res)),
-      switchMap((order) => {
-        const orderId = order.id;
+      switchMap(({ id: orderId }) => {
         const details = this.prepareDetails();
         return this.dataSvc.saveDetailsOrder({ details, orderId });
       }),
-      tap(res => console.log('Finish ->', res)),
+      tap(() => this.router.navigate(['/checkout/thank-you-page'])),
     )
       .subscribe()
   }
